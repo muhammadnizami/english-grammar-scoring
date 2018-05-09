@@ -3,8 +3,8 @@ from bllipparser import RerankingParser
 from sklearn import datasets, linear_model, neural_network, metrics
 from pathlib import Path
 
-import data_load
-import grammar_scoring
+from . import data_load
+from . import grammar_scoring
 
 X,y = data_load.loadErrorCountDataToScore("data/errorCountCorpus_train")
 Xtest,ytest = data_load.loadErrorCountDataToScore("data/errorCountCorpus_test")

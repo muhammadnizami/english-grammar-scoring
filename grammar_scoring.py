@@ -1,5 +1,5 @@
 import numpy as np
-import data_load
+from . import data_load
 from pathlib import Path
 from bllipparser import RerankingParser
 from sklearn import datasets, linear_model
