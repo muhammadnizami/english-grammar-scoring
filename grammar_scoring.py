@@ -1,5 +1,10 @@
 import numpy as np
-from . import data_load
+
+try:
+	from . import data_load
+except (SystemError, ImportError):
+	import data_load
+
 from pathlib import Path
 from bllipparser import RerankingParser
 from sklearn import datasets, linear_model
