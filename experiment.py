@@ -27,14 +27,14 @@ print("train:")
 grammarScorer = grammar_scoring.GrammarScorer(grammar_scoring.NoReg())
 grammarScorer.fitParsed(probs,sentenceLengths,y)
 y_predict = grammarScorer.predictParsed(probs,sentenceLengths)
-with open("experiment-train-NoReg,numAttrs:"+str(numAttr)+",isTransformed:"+str(isTransformed),"w") as outfile:
+with open("experiment-train-NoReg","w") as outfile:
 	for item in y_predict:
 		outfile.write(str(item)+"\n")
 print("corr:")
 print(np.corrcoef(y_predict,y))
 print("test:")
 y_predict = grammarScorer.predictParsed(probsTest,sentenceLengthsTest)
-with open("experiment-test-NoReg,numAttrs:"+str(numAttr)+",isTransformed:"+str(isTransformed),"w") as outfile:
+with open("experiment-test-NoReg","w") as outfile:
 	for item in y_predict:
 		outfile.write(str(item)+"\n")
 print("corr:")
