@@ -62,6 +62,12 @@ class GrammarScorer:
 		if self.isTransformed:
 			attrs = [np.divide(attrs[i],sentenceLengths[i]) for i in range(len(sentenceLengths))]
 		return attrs
+
+	def saveModel(self, modelFileName="pretrained_model"):
+		with open(modelFileName,"wb") as f:
+			pickle.dump(self.regressionModel,f)
+			pickle.dump(self.numAttrs,f)
+			pickle.dump(self.isTransformed,f)
 			
 class NoReg:
 	def __init__(self):
@@ -74,7 +80,11 @@ class NoReg:
 		return [x[0] for x in X]
 
 def loadModel(modelFileName="pretrained_model"):
-	return pickle.load(open(modelFileName,"rb"))
+	with open(modelFileName,"rb") as f:
+		regressionModel = pickle.load(f)
+		numAttrs = pickle.load(f)
+		isTransformed = pickle.load(f)
+		return GrammarScorer(regressionModel,numAttrs,isTransformed)
 
 def trainAndSaveModel(trainFileName="data/errorCountCorpus_train", modelFileName="pretrained_model", regressionModel=linear_model.LinearRegression(), numAttrs=5, isTransformed=False):
 	X,y = data_load.loadErrorCountDataToScore(trainFileName)
@@ -85,4 +95,4 @@ def trainAndSaveModel(trainFileName="data/errorCountCorpus_train", modelFileName
 	print("parsing done")
 	grammarScorer = GrammarScorer(NoReg())
 	grammarScorer.fitParsed(probs,sentenceLengths,y)
-	pickle.dump(grammarScorer,open(modelFileName,"wb"))
+	grammarScorer.saveModel(modelFileName)
