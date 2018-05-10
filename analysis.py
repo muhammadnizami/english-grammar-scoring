@@ -19,7 +19,7 @@ X,y = loadData("data/errorCountCorpus_train")
 print("train variance: "+ str(np.var(y)))
 
 rrp = RerankingParser.fetch_and_load('WSJ+Gigaword-v2', verbose=True)
-lens = [sentenceLength(x) for x in X]
+lens = [grammar_scoring.sentenceLength(x) for x in X]
 probs = [[tree.parser_score for tree in rrp.parse(x)] for x in X]
 probs = [x[0] for x in probs]
 
