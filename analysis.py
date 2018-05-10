@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import grammar_scoring
 
 from pathlib import Path
 from bllipparser import RerankingParser
@@ -18,9 +19,9 @@ X,y = loadData("data/errorCountCorpus_train")
 print("train variance: "+ str(np.var(y)))
 
 rrp = RerankingParser.fetch_and_load('WSJ+Gigaword-v2', verbose=True)
+lens = [sentenceLength(x) for x in X]
 probs = [[tree.parser_score for tree in rrp.parse(x)] for x in X]
 probs = [x[0] for x in probs]
-lens = [len(x) for x in X]
 
 plt.plot(lens, probs, 'ro')
 plt.show()
