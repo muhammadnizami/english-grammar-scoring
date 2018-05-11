@@ -22,7 +22,7 @@ def parse(sentence,nbest=MAX_NUMATTR):
 def parseProb(sentence,nbest=MAX_NUMATTR):
 	a = [tree.parser_score for tree in parse(sentence,nbest)[:MAX_NUMATTR]]
 	if len(a)<nbest:
-		a.extend([a[-1]]*(nbest-len(a)))
+		a.extend([a[-1] if len(a)>0 else -float("Inf")]*(nbest-len(a)))
 	return a;
 
 def parseProbs(sentences,nbest=MAX_NUMATTR):
